@@ -42,6 +42,12 @@
             this.FilesListBox = new System.Windows.Forms.ListBox();
             this.FileLabel = new System.Windows.Forms.Label();
             this.FolderLabel = new System.Windows.Forms.Label();
+            this.FileNameLabel = new System.Windows.Forms.Label();
+            this.FileNameTextbox = new System.Windows.Forms.TextBox();
+            this.FileSizeLabel = new System.Windows.Forms.Label();
+            this.FileSizeTextbox = new System.Windows.Forms.TextBox();
+            this.LastModLabel = new System.Windows.Forms.Label();
+            this.LastModTextbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // PathTextbox
@@ -97,7 +103,7 @@
             // CreationLabel
             // 
             this.CreationLabel.AutoSize = true;
-            this.CreationLabel.Location = new System.Drawing.Point(12, 373);
+            this.CreationLabel.Location = new System.Drawing.Point(12, 410);
             this.CreationLabel.Name = "CreationLabel";
             this.CreationLabel.Size = new System.Drawing.Size(75, 13);
             this.CreationLabel.TabIndex = 5;
@@ -106,15 +112,15 @@
             // CreationTimeTextbox
             // 
             this.CreationTimeTextbox.Enabled = false;
-            this.CreationTimeTextbox.Location = new System.Drawing.Point(12, 397);
+            this.CreationTimeTextbox.Location = new System.Drawing.Point(12, 435);
             this.CreationTimeTextbox.Name = "CreationTimeTextbox";
-            this.CreationTimeTextbox.Size = new System.Drawing.Size(139, 20);
+            this.CreationTimeTextbox.Size = new System.Drawing.Size(209, 20);
             this.CreationTimeTextbox.TabIndex = 6;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 434);
+            this.label2.Location = new System.Drawing.Point(9, 470);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 7;
@@ -123,9 +129,9 @@
             // LastAccessTimeTB
             // 
             this.LastAccessTimeTB.Enabled = false;
-            this.LastAccessTimeTB.Location = new System.Drawing.Point(12, 461);
+            this.LastAccessTimeTB.Location = new System.Drawing.Point(12, 496);
             this.LastAccessTimeTB.Name = "LastAccessTimeTB";
-            this.LastAccessTimeTB.Size = new System.Drawing.Size(139, 20);
+            this.LastAccessTimeTB.Size = new System.Drawing.Size(209, 20);
             this.LastAccessTimeTB.TabIndex = 8;
             // 
             // FoldersListBox
@@ -152,6 +158,7 @@
             this.FilesListBox.Name = "FilesListBox";
             this.FilesListBox.Size = new System.Drawing.Size(209, 212);
             this.FilesListBox.TabIndex = 13;
+            this.FilesListBox.SelectedIndexChanged += new System.EventHandler(this.FilesListBox_SelectedIndexChanged);
             // 
             // FileLabel
             // 
@@ -171,11 +178,68 @@
             this.FolderLabel.TabIndex = 15;
             this.FolderLabel.Text = "Folders:";
             // 
+            // FileNameLabel
+            // 
+            this.FileNameLabel.AutoSize = true;
+            this.FileNameLabel.Location = new System.Drawing.Point(12, 375);
+            this.FileNameLabel.Name = "FileNameLabel";
+            this.FileNameLabel.Size = new System.Drawing.Size(57, 13);
+            this.FileNameLabel.TabIndex = 16;
+            this.FileNameLabel.Text = "File Name:";
+            // 
+            // FileNameTextbox
+            // 
+            this.FileNameTextbox.Enabled = false;
+            this.FileNameTextbox.Location = new System.Drawing.Point(76, 375);
+            this.FileNameTextbox.Name = "FileNameTextbox";
+            this.FileNameTextbox.Size = new System.Drawing.Size(377, 20);
+            this.FileNameTextbox.TabIndex = 17;
+            // 
+            // FileSizeLabel
+            // 
+            this.FileSizeLabel.AutoSize = true;
+            this.FileSizeLabel.Location = new System.Drawing.Point(241, 410);
+            this.FileSizeLabel.Name = "FileSizeLabel";
+            this.FileSizeLabel.Size = new System.Drawing.Size(49, 13);
+            this.FileSizeLabel.TabIndex = 18;
+            this.FileSizeLabel.Text = "File Size:";
+            // 
+            // FileSizeTextbox
+            // 
+            this.FileSizeTextbox.Enabled = false;
+            this.FileSizeTextbox.Location = new System.Drawing.Point(244, 435);
+            this.FileSizeTextbox.Name = "FileSizeTextbox";
+            this.FileSizeTextbox.Size = new System.Drawing.Size(209, 20);
+            this.FileSizeTextbox.TabIndex = 19;
+            // 
+            // LastModLabel
+            // 
+            this.LastModLabel.AutoSize = true;
+            this.LastModLabel.Location = new System.Drawing.Point(241, 470);
+            this.LastModLabel.Name = "LastModLabel";
+            this.LastModLabel.Size = new System.Drawing.Size(111, 13);
+            this.LastModLabel.TabIndex = 20;
+            this.LastModLabel.Text = "Last modification time:";
+            // 
+            // LastModTextbox
+            // 
+            this.LastModTextbox.Enabled = false;
+            this.LastModTextbox.Location = new System.Drawing.Point(244, 495);
+            this.LastModTextbox.Name = "LastModTextbox";
+            this.LastModTextbox.Size = new System.Drawing.Size(209, 20);
+            this.LastModTextbox.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(465, 528);
+            this.Controls.Add(this.LastModTextbox);
+            this.Controls.Add(this.LastModLabel);
+            this.Controls.Add(this.FileSizeTextbox);
+            this.Controls.Add(this.FileSizeLabel);
+            this.Controls.Add(this.FileNameTextbox);
+            this.Controls.Add(this.FileNameLabel);
             this.Controls.Add(this.FolderLabel);
             this.Controls.Add(this.FileLabel);
             this.Controls.Add(this.FilesListBox);
@@ -214,6 +278,12 @@
         private System.Windows.Forms.ListBox FilesListBox;
         private System.Windows.Forms.Label FileLabel;
         private System.Windows.Forms.Label FolderLabel;
+        private System.Windows.Forms.Label FileNameLabel;
+        private System.Windows.Forms.TextBox FileNameTextbox;
+        private System.Windows.Forms.Label FileSizeLabel;
+        private System.Windows.Forms.TextBox FileSizeTextbox;
+        private System.Windows.Forms.Label LastModLabel;
+        private System.Windows.Forms.TextBox LastModTextbox;
     }
 }
 

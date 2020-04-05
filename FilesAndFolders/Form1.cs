@@ -17,9 +17,8 @@ namespace FilesAndFolders
         public string path;
         public FileInfo fileInfo;
         public DirectoryInfo directoryInfo;
-        public string msgResult;
-        public string creationTime;
-        public string lastAccessTime;
+        public string directoryPath;
+
 
         public Form1()
         {
@@ -43,9 +42,7 @@ namespace FilesAndFolders
                         if (fileInfo.Exists)
                         {
 
-                            creationTime = fileInfo.CreationTime.ToString();
-
-                            lastAccessTime = fileInfo.LastAccessTime.ToString();
+                            directoryPath = fileInfo.DirectoryName;
 
                             Fill_Folder_ListBox();
 
@@ -63,16 +60,12 @@ namespace FilesAndFolders
 
                         directoryInfo = new DirectoryInfo(PathTextbox.Text);
 
+                        directoryPath = directoryInfo.FullName;
+
                         if (directoryInfo.Exists)
                         {
 
-                            creationTime = directoryInfo.CreationTime.ToString();
-
-                            lastAccessTime = directoryInfo.LastAccessTime.ToString();
-
                             FillFiles_Folders_ListBoxes();
-
-                            FillTextBoxes();
 
                         }
                         else
@@ -145,10 +138,63 @@ namespace FilesAndFolders
         private void FillTextBoxes()
         {
 
-            CreationTimeTextbox.Text = creationTime;
+            FileNameTextbox.Text = fileInfo.Name;
 
-            LastAccessTimeTB.Text = lastAccessTime;
+            CreationTimeTextbox.Text = fileInfo.CreationTime.ToString();
+
+            FileSizeTextbox.Text = fileInfo.Length.ToString() + " bytes";
+
+            LastAccessTimeTB.Text = fileInfo.LastAccessTime.ToString();
+
+            LastModTextbox.Text = fileInfo.LastWriteTime.ToString();
+
+        }
+
+        private void FilesListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+                if (FilesListBox.SelectedIndex != -1)
+                {
+
+                    fileInfo = new FileInfo(Path.Combine(directoryPath, FilesListBox.SelectedItem.ToString()));
+
+                    if (fileInfo.Exists)
+                    {
+                        FillTextBoxes();
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Invalid selection. Please select a file to display file info.");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             
+        }
+
+        private void Clear_Textboxes()
+        {
+
+            FilesListBox.Items.Clear();
+
+            FoldersListBox.Items.Clear();
+
+            CreationTimeTextbox.Text = "";
+
+            FileSizeTextbox.Text = "";
+
+            LastAccessTimeTB.Text = "";
+
+            LastModTextbox.Text = "";
 
         }
     }
