@@ -37,31 +37,51 @@ namespace FilesAndFolders
 
                     if (FileButton.Checked)
                     {
+
                         fileInfo = new FileInfo(PathTextbox.Text);
 
-                        msgResult = fileInfo.Exists.ToString();
+                        if (fileInfo.Exists)
+                        {
 
-                        creationTime = fileInfo.CreationTime.ToString();
+                            creationTime = fileInfo.CreationTime.ToString();
 
-                        lastAccessTime = fileInfo.LastAccessTime.ToString();
+                            lastAccessTime = fileInfo.LastAccessTime.ToString();
+
+                            Fill_Folder_ListBox();
+
+                            FillTextBoxes();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("File does not exist!");
+                        }
 
                     }
                     else if (FolderButton.Checked)
                     {
+
                         directoryInfo = new DirectoryInfo(PathTextbox.Text);
 
-                        msgResult = directoryInfo.Exists.ToString();
+                        if (directoryInfo.Exists)
+                        {
 
-                        creationTime = directoryInfo.CreationTime.ToString();
+                            creationTime = directoryInfo.CreationTime.ToString();
 
-                        lastAccessTime = directoryInfo.LastAccessTime.ToString();
+                            lastAccessTime = directoryInfo.LastAccessTime.ToString();
 
+                            FillFiles_Folders_ListBoxes();
+
+                            FillTextBoxes();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Folder does not exist!");
+                        }
+                     
                     }
-
-                    MessageBox.Show("Was the folder or file found on the system?: " + msgResult);
-
-                    FillTextBoxes();
-
+               
                 }
                 else
                 {
@@ -78,15 +98,56 @@ namespace FilesAndFolders
             
         }
 
+        private void Fill_Folder_ListBox()
+        {
+
+            DirectoryInfo directory = fileInfo.Directory;
+
+            if (!FoldersListBox.Items.Contains(directory.Name))
+            {
+                FoldersListBox.Items.Add(directory.Name);
+            }
+
+        }
+
+        private void FillFiles_Folders_ListBoxes()
+        {
+
+            DirectoryInfo[] subDirectories = directoryInfo.GetDirectories();
+
+            foreach (DirectoryInfo folder in subDirectories)
+            {
+
+                if (!FoldersListBox.Items.Contains(folder))
+                {
+                    FoldersListBox.Items.Add(folder);
+                }
+
+            }
+
+            FileInfo[] fileArray = directoryInfo.GetFiles();
+
+            foreach (FileInfo file in fileArray)
+            {
+
+                if (!FilesListBox.Items.Contains(file))
+                {
+
+                    FilesListBox.Items.Add(file);
+
+                }
+
+            }
+
+
+        }
+
         private void FillTextBoxes()
         {
 
             CreationTimeTextbox.Text = creationTime;
 
             LastAccessTimeTB.Text = lastAccessTime;
-
-            textBox1.Text = Path.Combine(@"C:\Users\kevin\Documents\SQL Server 2012 Scripts\Code Samples - Final", "Chapter4DB.sql");
-
             
 
         }
