@@ -31,6 +31,8 @@ namespace FilesAndFolders
             try
             {
 
+                Clear_Textboxes();
+
                 if (PathTextbox.Text.Length > 0 && PathTextbox.Text != "")
                 {
 
@@ -111,9 +113,9 @@ namespace FilesAndFolders
             foreach (DirectoryInfo folder in subDirectories)
             {
 
-                if (!FoldersListBox.Items.Contains(folder))
+                if (!FoldersListBox.Items.Contains(folder.Name))
                 {
-                    FoldersListBox.Items.Add(folder);
+                    FoldersListBox.Items.Add(folder.Name);
                 }
 
             }
@@ -123,10 +125,10 @@ namespace FilesAndFolders
             foreach (FileInfo file in fileArray)
             {
 
-                if (!FilesListBox.Items.Contains(file))
+                if (!FilesListBox.Items.Contains(file.Name))
                 {
 
-                    FilesListBox.Items.Add(file);
+                    FilesListBox.Items.Add(file.Name);
 
                 }
 
