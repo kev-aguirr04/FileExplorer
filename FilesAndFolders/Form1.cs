@@ -175,16 +175,18 @@ namespace FilesAndFolders
                 }
 
             }
-            catch (Exception)
+            catch (Exception exc)
             {
 
-                throw;
+                MessageBox.Show("Error has occurred in Files List Box. Refer to following message: \n\n" + exc.Message, "Message from Program", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             
         }
 
         private void Clear_Textboxes()
         {
+
+            FileNameTextbox.Text = "";
 
             FilesListBox.Items.Clear();
 
