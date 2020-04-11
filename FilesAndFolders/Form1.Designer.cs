@@ -141,6 +141,7 @@
             this.FoldersListBox.Name = "FoldersListBox";
             this.FoldersListBox.Size = new System.Drawing.Size(209, 212);
             this.FoldersListBox.TabIndex = 11;
+            this.FoldersListBox.SelectedIndexChanged += new System.EventHandler(this.Folder_SelectedChange);
             // 
             // FileTypeLabelOption
             // 

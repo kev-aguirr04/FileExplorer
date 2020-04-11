@@ -167,6 +167,10 @@ namespace FilesAndFolders
                     {
                         FillTextBoxes();
                     }
+                    else
+                    {
+                        MessageBox.Show("File does not exist or file is incompatible.");
+                    }
 
                 }
                 else
@@ -199,6 +203,56 @@ namespace FilesAndFolders
             LastAccessTimeTB.Text = "";
 
             LastModTextbox.Text = "";
+
+        }
+
+        private void Folder_SelectedChange(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+                if (FoldersListBox.SelectedIndex != 1 && FoldersListBox.SelectedItem != null)
+                {
+                   
+                    string selectedFolder = FoldersListBox.SelectedItem.ToString();
+
+                    if (selectedFolder != null && selectedFolder != string.Empty)
+                    {
+
+                        string path = Path.Combine(directoryInfo.FullName, selectedFolder);
+
+                        directoryInfo = new DirectoryInfo(path);
+
+                        directoryPath = directoryInfo.FullName;
+
+                        Clear_Textboxes();
+
+                        FillFiles_Folders_ListBoxes();
+
+                    }
+                    else
+                    {
+
+                        MessageBox.Show("Selected folder cannot be blank!");
+
+                    }
+                    
+                }
+                else
+                {
+
+                    MessageBox.Show("Invalid selection! Please select a folder from the list box.");
+
+                }
+
+            }
+            catch (Exception exc)
+            {
+
+                MessageBox.Show("Error has occurred in Folder_SelectedChange method. Please refer to the following message: \n\n" + exc.Message);
+
+            }
 
         }
     }
