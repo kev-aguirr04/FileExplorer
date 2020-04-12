@@ -48,8 +48,6 @@ namespace FilesAndFolders
 
                             Fill_Folder_ListBox();
 
-                            FillTextBoxes();
-
                         }
                         else
                         {
@@ -98,10 +96,27 @@ namespace FilesAndFolders
 
             DirectoryInfo directory = fileInfo.Directory;
 
-            if (!FoldersListBox.Items.Contains(directory.Name))
+            foreach (DirectoryInfo directoryInfo in directory.GetDirectories())
             {
-                FoldersListBox.Items.Add(directory.Name);
+
+                if (!FoldersListBox.Items.Contains(directoryInfo.Name))
+                {
+                    FoldersListBox.Items.Add(directoryInfo.Name);
+                }
+
             }
+        
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                if (!FilesListBox.Items.Contains(file.Name))
+                {
+                    FilesListBox.Items.Add(file.Name);
+                }
+            }
+
+            int index = FilesListBox.Items.IndexOf(fileInfo.Name);
+
+            FilesListBox.SetSelected(index, true);
 
         }
 
@@ -220,15 +235,27 @@ namespace FilesAndFolders
                     if (selectedFolder != null && selectedFolder != string.Empty)
                     {
 
-                        string path = Path.Combine(directoryInfo.FullName, selectedFolder);
+                        //string path = Path.Combine(directoryInfo.FullName, selectedFolder);
+
+                        string path = Path.Combine(directoryPath, selectedFolder);
 
                         directoryInfo = new DirectoryInfo(path);
 
-                        directoryPath = directoryInfo.FullName;
+                        if (directoryInfo.Exists)
+                        {
 
-                        Clear_Textboxes();
+                            directoryPath = directoryInfo.FullName;
 
-                        FillFiles_Folders_ListBoxes();
+                            Clear_Textboxes();
+
+                            FillFiles_Folders_ListBoxes();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Directory does not exist!");
+                        }
+                        
 
                     }
                     else
